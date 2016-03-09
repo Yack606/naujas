@@ -1,0 +1,76 @@
+
+public class ThreadToInterrupt extends Thread
+{
+	
+	public ThreadToInterrupt (String x)
+	{
+		super(x);
+	}
+	
+	public void run()
+	{
+		
+		System.out.println("Hello, I am new Thread.");
+		
+		for(int i =0; i<10; i++){
+			
+		try{
+			System.out.println((i+1)+" sec");
+			Thread.sleep(1000);
+			
+		}catch(InterruptedException e)
+		{
+			
+			System.out.println("Error with sleep");
+			
+		}
+		
+		}
+		
+	}
+	
+}
+
+
+
+
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		
+		ThreadToInterrupt InterThread = new ThreadToInterrupt("NewThread");
+		
+		InterThread.start();
+		try
+		{
+			InterThread.join();
+		}
+		catch(InterruptedException e)
+		{
+			System.out.println("Error with join");
+		}
+		
+		InterThread.interrupt();
+		
+		for (int i =0; i<10; i++){
+		try
+		{
+			
+			System.out.println((i+1)+" sec");
+			InterThread.sleep(1000);
+		}
+		catch(InterruptedException e)
+		{
+			System.out.println("Error with sleep");
+		}
+		}
+		
+		
+
+	}
+
+}
+
